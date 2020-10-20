@@ -41,7 +41,6 @@ class _HomePageState extends State<HomePage> {
             if (state is HomeInitialState) {
               _homeBloc.add(OnLoadRemindersEvent());
             }
-            // TODO: add more states or bloc consumer instead if needed
             return HomeBody(
               homeState: state,
               homeBloc: _homeBloc,
@@ -67,9 +66,14 @@ class _HomePageState extends State<HomePage> {
             ),
           ).then(
             (result) {
+              print(result);
               if (result != null) {
-                // TODO: bloc add evento to add reminder to db
-                // TODO: add reminder to HomeBody list view
+                _homeBloc
+                  ..add(
+                    OnAddElementEvent(
+                      todoReminder: result,
+                    ),
+                  );
               }
             },
           );

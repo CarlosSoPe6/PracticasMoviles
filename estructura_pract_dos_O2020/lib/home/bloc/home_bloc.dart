@@ -3,13 +3,15 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:hive/hive.dart';
+import 'package:pract_dos/consts.dart';
 import 'package:pract_dos/models/todo_reminder.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  // TODO: inicializar la box
+  Box _box = Hive.box(HIVE_BOX_NAME);
   HomeBloc() : super(HomeInitialState());
 
   @override
@@ -45,11 +47,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   void _saveTodoReminder(TodoRemainder todoReminder) {
-    // TODO:add item here
+    _box.add(todoReminder);
   }
 
   void _removeTodoReminder(int removedAtIndex) {
-    // TODO:delete item here
+    _box.deleteAt(removedAtIndex);
   }
 }
 
