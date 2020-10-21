@@ -41,17 +41,23 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   List<TodoRemainder> _loadReminders() {
-    // ver si existen datos To-doRemainder en la box y sacarlos como Lista (no es necesario hacer get ni put)
-    // debe haber un adapter para que la BD pueda detectar el objeto
-    throw EmptyDatabase();
+    List<TodoRemainder> reminders = List();
+    _box.values.forEach((element) {
+      reminders.add(element);
+    });
+    if (reminders.length == 0) {
+      throw EmptyDatabase();
+    }
+    return reminders;
   }
 
-  void _saveTodoReminder(TodoRemainder todoReminder) {
-    _box.add(todoReminder);
+  void _saveTodoReminder(TodoRemainder todoReminder) async {
+    int i = await _box.add(todoReminder);
+    print(i);
   }
 
-  void _removeTodoReminder(int removedAtIndex) {
-    _box.deleteAt(removedAtIndex);
+  void _removeTodoReminder(int removedAtIndex) async {
+    await _box.deleteAt(removedAtIndex);
   }
 }
 
