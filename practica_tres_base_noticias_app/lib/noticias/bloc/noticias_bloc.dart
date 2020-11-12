@@ -36,6 +36,23 @@ class NoticiasBloc extends Bloc<NoticiasEvent, NoticiasState> {
         yield NoticiasErrorState(message: "Error al cargar noticias: $e");
       }
     }
+    if (event is NoticiasBuscarEvent) {
+      String search = event.search;
+      try {
+        List<Noticia> soportsNews = await _requestSportNoticias();
+        List<Noticia> businessNews = await _requestBusinessNoticias();
+        List<Noticia> merge = List<Noticia>();
+        merge.addAll(soportsNews);
+        merge.addAll(businessNews);
+        merge.where((element) =>
+            element.content.toLowerCase().contains(search) ||
+            element.title.toLowerCase().contains(search) ||
+            element.description.toLowerCase().contains(search));
+        yield NoticasBuscarResultState(noticias: merge);
+      } catch (e) {
+        yield NoticiasErrorState(message: "Error al cargar noticias: $e");
+      }
+    }
   }
 
   Future<List<Noticia>> _requestBusinessNoticias() async {

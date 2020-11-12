@@ -39,12 +39,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           error: "Error al hacer login con Google: ${e.toString()}",
         );
       }
-    } else if (event is LoginWithFacebookEvent) {
-      // TODO: facebook login
-    } else if (event is LoginWithEmailEvent) {
-      // TODO: email login
-    } else if (event is ForgotPasswordEvent) {
-      // TODO: reset password workflow
     }
   }
 }

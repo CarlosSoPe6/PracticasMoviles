@@ -3,6 +3,7 @@ import 'package:noticias/busqueda/busqueda_noticia.dart';
 import 'package:noticias/creadas/bloc/creadas_bloc.dart';
 import 'package:noticias/creadas/mis_noticias.dart';
 import 'package:noticias/creadas/crear_noticia.dart';
+import 'package:noticias/noticias/bloc/noticias_bloc.dart';
 import 'package:noticias/noticias/noticias.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,6 +15,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final CreadasBloc _creadasBloc = CreadasBloc();
+  final NoticiasBloc _noticiasBloc = NoticiasBloc();
 
   final _bottomTabs = [
     BottomNavigationBarItem(
@@ -52,8 +54,8 @@ class _HomePageState extends State<HomePage> {
     _currentPageIndex = 0;
     _creadasBloc.add(FetchNewsEvent());
     _pagesList = [
-      Noticias(),
-      BusquedaNoticia(),
+      Noticias(bloc: _noticiasBloc),
+      BusquedaNoticia(bloc: _noticiasBloc),
       CrearNoticia(bloc: _creadasBloc),
       MisNoticias(bloc: _creadasBloc),
     ];
