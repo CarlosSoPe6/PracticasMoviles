@@ -20,6 +20,8 @@ class _CrearNoticiaState extends State<CrearNoticia> {
 
   final TextEditingController _contentController = TextEditingController();
 
+  bool _camara = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,11 +86,30 @@ class _CrearNoticiaState extends State<CrearNoticia> {
                             urlToImage: '',
                             publishedAt: '',
                             content: _contentController.text);
-                        _bloc.add(CreateNewEvent(noticia: noticia));
+                        _bloc.add(CreateNewEvent(
+                          noticia: noticia,
+                          camera: _camara,
+                        ));
                         _tituloController.clear();
                         _descripcionController.clear();
                         _contentController.clear();
                       },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Row(
+                      children: [
+                        Text('Foto desde cámara:'),
+                        Checkbox(
+                          value: _camara,
+                          onChanged: (value) {
+                            setState(() {
+                              _camara = value;
+                            });
+                          },
+                        ),
+                      ],
                     ),
                   ),
                 ],

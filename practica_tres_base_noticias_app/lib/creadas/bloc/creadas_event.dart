@@ -9,7 +9,8 @@ abstract class CreadasEvent extends Equatable {
 
 class CreateNewEvent extends CreadasEvent {
   final Noticia noticia;
-  CreateNewEvent({this.noticia});
+  final bool camera;
+  CreateNewEvent({this.noticia, this.camera});
 }
 
 class FetchNewsEvent extends CreadasEvent {}

@@ -24,7 +24,8 @@ class CreadasBloc extends Bloc<CreadasEvent, CreadasState> {
       yield FetchedNewsState(noticias: noticias);
     } else if (event is CreateNewEvent) {
       var elemento = event.noticia;
-      File image = await _chooseImage();
+      bool camera = event.camera;
+      File image = await _chooseImage(camera: camera);
       String urlToImage = await _uploadPicture(image);
       await _saveNoticia(elemento, urlToImage);
       yield CreatedNewState();
